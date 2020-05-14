@@ -6,6 +6,9 @@
 
     $hobbiesValue = [];
     $hobbiesError = '';
+
+    $agbValue = '';
+    $agbError = '';
     if(isset($_POST['send'])) {
         $valid = true;
         // Serverseitige Validierung
@@ -18,6 +21,12 @@
         $hobbiesValue = $_POST['hobbies'] ?? [];
         if(!isset($_POST['hobbies'])) {
             $hobbiesError = 'Haben Sie wirklich keine Hobbys?';
+            $valid = false;
+        }
+
+        $agbValue = $_POST['agb'];
+        if(!isset($agbValue) || $agbValue === 'nein') {
+            $agbError = 'Bitte bestätigen Sie die AGBs!';
             $valid = false;
         }
 
@@ -62,6 +71,22 @@
                 <label>
                     Vollyball spielen
                     <input type="checkbox" name="hobbies[]" value="vollyball" <?= in_array('vollyball', $hobbiesValue) ? 'checked' : '' ?> />
+                </label>
+            </fieldset>
+            <fieldset>
+                <legend>AGB?</legend>
+                <?php if($agbError): ?>
+                    <div class="error">
+                        <?= $agbError ?>
+                    </div>
+                <?php endif; ?> 
+                <label>
+                    Ja
+                    <input type="radio" name="agb" value="ja" <?= $agbValue === 'ja' ? 'checked' : '' ?> />
+                </label>
+                <label>
+                    Nein
+                    <input type="radio" name="agb" value="nein" <?= $agbValue === 'nein' ? 'checked' : '' ?> />
                 </label>
             </fieldset>
             <input type="submit" name="send" value="Absenden" />
