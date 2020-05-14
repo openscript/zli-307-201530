@@ -15,7 +15,7 @@
             $valid = false;
         }
 
-        $hobbiesValue = $_POST['hobbies'];
+        $hobbiesValue = $_POST['hobbies'] ?? [];
         if(!isset($_POST['hobbies'])) {
             $hobbiesError = 'Haben Sie wirklich keine Hobbys?';
             $valid = false;
